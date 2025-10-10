@@ -3,6 +3,9 @@
 
 #include "AchromaticaCharacterBase.h"
 
+#include "Components/CapsuleComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+
 // Sets default values
 AAchromaticaCharacterBase::AAchromaticaCharacterBase()
 {
@@ -13,6 +16,25 @@ AAchromaticaCharacterBase::AAchromaticaCharacterBase()
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(AscReplicationMode);
+
+	// Set size for collision capsule
+	GetCapsuleComponent()->InitCapsuleSize(35.f, 90.0f);
+
+	// Don't rotate when the controller rotates. Let that just affect the camera.
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+
+	// Configure character movement
+	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...	
+	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f); // ...at this rotation rate
+
+	GetCharacterMovement()->JumpZVelocity = 500.f;
+	GetCharacterMovement()->AirControl = 0.35f;
+	GetCharacterMovement()->MaxWalkSpeed = 500.f;
+	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
+	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
+	GetCharacterMovement()->BrakingDecelerationFalling = 1500.f;
 }
 
 // Called when the game starts or when spawned
@@ -37,6 +59,8 @@ void AAchromaticaCharacterBase::SetupPlayerInputComponent(UInputComponent* Playe
 }
 
 
+
+
 void AAchromaticaCharacterBase::PossessedBy(AController* NewController)
 {
     Super::PossessedBy(NewController);
@@ -55,4 +79,9 @@ void AAchromaticaCharacterBase::OnRep_PlayerState()
     {
         AbilitySystemComponent->InitAbilityActorInfo(this, this);
     }
+}
+
+UAbilitySystemComponent* AAchromaticaCharacterBase::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
 }

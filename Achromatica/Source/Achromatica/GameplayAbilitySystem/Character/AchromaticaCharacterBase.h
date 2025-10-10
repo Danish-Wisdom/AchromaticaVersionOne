@@ -10,7 +10,7 @@
 #include "AchromaticaCharacterBase.generated.h"
 
 UCLASS()
-class ACHROMATICA_API AAchromaticaCharacterBase : public ACharacter, IAbilitySystemInterface
+class ACHROMATICA_API AAchromaticaCharacterBase : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -41,5 +41,5 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	virtual class UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 };
