@@ -3,6 +3,7 @@
 
 #include "AchromaticaCharacterBase.h"
 
+#include "Achromatica/GameplayAbilitySystem/AttributeSets/BasicAttributeSet.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -35,6 +36,10 @@ AAchromaticaCharacterBase::AAchromaticaCharacterBase()
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	GetCharacterMovement()->BrakingDecelerationFalling = 1500.f;
+
+
+	// Create the Attribute Set, this replicates by default
+	BasicAttributeSet = CreateDefaultSubobject<UBasicAttributeSet>(TEXT("BasicAttributeSet"));
 }
 
 // Called when the game starts or when spawned
