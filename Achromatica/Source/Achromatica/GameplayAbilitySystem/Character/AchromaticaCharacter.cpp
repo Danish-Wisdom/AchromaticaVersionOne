@@ -61,14 +61,14 @@ void AAchromaticaCharacter::OnRep_PlayerState()
 
 void AAchromaticaCharacter::InitAbilityActorInfo()
 {
-	if (AAchromaticaPlayerState* PlayerState = GetPlayerState<AAchromaticaPlayerState>())
+	if (AAchromaticaPlayerState* AchromaticaPlayerState = GetPlayerState<AAchromaticaPlayerState>())
 	{
-		AbilitySystem = PlayerState->GetAchromaticaASC();
-		AttributeSet = PlayerState->GetAchromaticaAttributeSet();
+		AbilitySystem = AchromaticaPlayerState->GetAchromaticaASC();
+		AttributeSet = AchromaticaPlayerState->GetAchromaticaAttributeSet();
 
 		if (IsValid(AbilitySystem))
 		{
-			AbilitySystem->InitAbilityActorInfo(PlayerState, this);
+			AbilitySystem->InitAbilityActorInfo(AchromaticaPlayerState, this);
 		}
 	}
 }

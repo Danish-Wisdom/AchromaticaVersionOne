@@ -3,6 +3,7 @@
 
 #include "AchromaticaPlayerState.h"
 
+
 AAchromaticaPlayerState::AAchromaticaPlayerState()
 {
 	SetNetUpdateFrequency(100.f);
